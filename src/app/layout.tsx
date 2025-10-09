@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RevealInit from "@/components/RevealInit";
+import DynamicFavicon from "@/components/DynamicFavicon";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={`${inter.variable} font-sans antialiased`}>
+        <DynamicFavicon />
         <RevealInit />
         <Header />
         <main className="min-h-screen">

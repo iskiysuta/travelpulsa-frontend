@@ -28,15 +28,15 @@ export default function CareerDetailPage() {
         if (!item && /^\d+$/.test(slug)) {
           try {
             const byId = await getCareerById(slug);
-            if (byId) item = byId as any;
+            if (byId) item = byId as CareerEntity;
           } catch {}
         }
         if (!item) setError('Posisi tidak ditemukan');
         setCareer(item);
       })
-      .catch((e: any) => {
+      .catch((e: unknown) => {
         if (cancelled) return;
-        setError(e?.message || 'Gagal memuat data');
+        setError((e as Error)?.message || 'Gagal memuat data');
       })
       .finally(() => {
         if (cancelled) return;

@@ -68,7 +68,7 @@ async function fetchAPI<T>(endpoint: string, init?: RequestInit): Promise<T> {
   return (await res.json()) as T;
 }
 
-function normalizeCareerEntity(entity: any): CareerEntity {
+function normalizeCareerEntity(entity: Record<string, unknown>): CareerEntity {
   if (!entity) return { id: 0, attributes: {} as CareerAttributes };
   if (entity.attributes && typeof entity.attributes === 'object') return entity as CareerEntity;
   // Some backends may flatten fields at top-level; wrap them into attributes

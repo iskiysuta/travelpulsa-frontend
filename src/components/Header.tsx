@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { api } from '@/lib/api';
 
@@ -23,7 +24,7 @@ const Header = () => {
           const url = img.url || img?.data?.attributes?.url;
           if (url) setLogoUrl(url.startsWith('http') ? url : `${base}${url}`);
         }
-      } catch (e) {
+      } catch {
         // ignore
       }
     })();
@@ -48,7 +49,7 @@ const Header = () => {
           <div className="flex items-center">
             <Link href="/" className="flex items-center" aria-label={siteName}>
               {logoUrl ? (
-                <img src={logoUrl} alt={siteName} className="h-12 w-auto" />
+                <Image src={logoUrl} alt={siteName} width={120} height={48} className="h-12 w-auto" />
               ) : (
                 <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-2xl">T</span>

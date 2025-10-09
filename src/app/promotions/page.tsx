@@ -27,7 +27,7 @@ export default function Promotions() {
 
   const handleUsePromo = (promotion: any) => {
     // Handle promo usage - could redirect to app or show modal
-    console.log('Using promo:', promotion.attributes.promoCode);
+    console.log('Using promo:', promotion.attributes?.promoCode);
     // You can implement redirect to app or show success modal here
   };
 
@@ -60,7 +60,7 @@ export default function Promotions() {
       {/* Featured Promotions */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 reveal">
+          <div className="text-center mb-16 reveal-show">
             <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">
               Promo Unggulan
             </h2>
@@ -78,7 +78,7 @@ export default function Promotions() {
               {[...featuredPromotions]
                 .sort((a: any, b: any) => new Date(b.attributes?.createdAt || b.createdAt || 0).getTime() - new Date(a.attributes?.createdAt || a.createdAt || 0).getTime())
                 .map((promotion, idx) => (
-                <div key={promotion.id} className="reveal" data-delay={`${idx * 120}`}>
+                <div key={promotion.id} className="reveal-show" data-delay={`${idx * 120}`}>
                   <PromotionCard
                     promotion={promotion}
                     variant="featured"
@@ -94,7 +94,7 @@ export default function Promotions() {
       {/* All Promotions */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 reveal">
+          <div className="text-center mb-16 reveal-show">
             <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">
               Semua Promo
             </h2>
@@ -178,7 +178,7 @@ export default function Promotions() {
                   : 'space-y-6'
               }>
                 {promotions.map((promotion, idx) => (
-                  <div key={promotion.id} className="reveal" data-delay={`${idx * 100}`}>
+                  <div key={promotion.id} className="reveal-show" data-delay={`${idx * 100}`}>
                     <PromotionCard
                       promotion={promotion}
                       variant={viewMode === 'list' ? 'compact' : 'default'}

@@ -8,13 +8,13 @@ export default function PrivacyPage() {
 
           <h2 className="text-2xl font-semibold mb-3">Privasi Anda Penting Bagi Kami</h2>
           <p className="mb-4">
-            TRAVEL PULSA dan Exlusoft ("kami" atau "kita") berdedikasi untuk melindungi hak-hak privasi pengguna aplikasi kami
-            ("pengguna" atau "Anda"). Kebijakan Privasi ini menjelaskan cara kami mengumpulkan, menyimpan, menggunakan, dan
+            TRAVEL PULSA dan Exlusoft (&quot;kami&quot; atau &quot;kita&quot;) berdedikasi untuk melindungi hak-hak privasi pengguna aplikasi kami
+            (&quot;pengguna&quot; atau &quot;Anda&quot;). Kebijakan Privasi ini menjelaskan cara kami mengumpulkan, menyimpan, menggunakan, dan
             mengelola informasi, termasuk informasi pribadi, yang Anda berikan atau kami kumpulkan sehubungan dengan aplikasi Android
-            dan webreport ("Layanan"). Kebijakan ini hanya terbatas pada informasi yang dikumpulkan atau diterima oleh TRAVEL PULSA
+            dan webreport (&quot;Layanan&quot;). Kebijakan ini hanya terbatas pada informasi yang dikumpulkan atau diterima oleh TRAVEL PULSA
             melalui penggunaan Layanan kami. Kami tidak bertanggung jawab atas tindakan pihak ketiga, konten atau materi pada website
             pihak ketiga yang meng-affiliasikan diri dengan Layanan kami, produk atau jasa yang mereka tawarkan, serta penggunaan
-            informasi yang Anda berikan kepada mereka. Aplikasi Android resmi kami hanya yang bernama "TRAVEL PULSA".
+            informasi yang Anda berikan kepada mereka. Aplikasi Android resmi kami hanya yang bernama &quot;TRAVEL PULSA&quot;.
           </p>
           <p className="mb-6">
             Dengan menggunakan Layanan kami, Anda dianggap telah menyetujui kebijakan ini dan mengizinkan kami melakukan pengolahan

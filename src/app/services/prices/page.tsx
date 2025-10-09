@@ -1,6 +1,7 @@
-export default async function PricesPage({ searchParams }: { searchParams?: { src?: string } }) {
+export default async function PricesPage({ searchParams }: { searchParams: Promise<{ src?: string }> }) {
   const DEFAULT_URL = 'https://travelpulsa.otoreport.com/harga.js.php?id=261961d19c9819d08d948c082d00d388b28ab658b5c14471ad51c430420be8496b27cde0959069b42b00ba2fc9017dc6-206';
-  const candidate = searchParams?.src ? decodeURIComponent(searchParams.src) : DEFAULT_URL;
+  const { src } = await searchParams;
+  const candidate = src ? decodeURIComponent(src) : DEFAULT_URL;
   const SOURCE_URL = candidate.startsWith('https://travelpulsa.otoreport.com/harga.js.php') ? candidate : DEFAULT_URL;
 
   const res = await fetch(SOURCE_URL, { cache: 'no-store' });

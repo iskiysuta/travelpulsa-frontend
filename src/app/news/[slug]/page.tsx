@@ -5,11 +5,15 @@ import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
 import rehypeRaw from 'rehype-raw';
 import Link from 'next/link';
+import Image from 'next/image';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 
 interface ParamsPromise { params: Promise<{ slug: string }> }
 
-type StrapiBlock = { type?: string; children?: Array<{ type?: string; text?: string } & any> } & any;
+type StrapiBlock = { 
+  type?: string; 
+  children?: Array<{ type?: string; text?: string } & Record<string, unknown>> 
+} & Record<string, unknown>;
 
 export default async function NewsDetail({ params }: ParamsPromise) {
   const { slug } = await params;
@@ -78,7 +82,7 @@ export default async function NewsDetail({ params }: ParamsPromise) {
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             {getImageUrl() && (
               <div className="w-full h-64 md:h-80 overflow-hidden">
-                <img src={getImageUrl()} alt={a.title || a.Title || 'Gambar'} className="w-full h-full object-cover" />
+                <Image src={getImageUrl()} alt={(a.title || a.Title || 'Gambar') as string} width={1280} height={512} className="w-full h-full object-cover" />
               </div>
             )}
             <div className="p-6 md:p-8">
@@ -129,7 +133,7 @@ export default async function NewsDetail({ params }: ParamsPromise) {
                     <li key={`${slugVal}-${idx}`} className="group">
                       <Link href={`/news/${slugVal}`} className="flex items-center gap-4 px-5 py-4 transition-all hover:bg-gray-50">
                         {thumb ? (
-                          <img src={thumb} alt="thumb" className="w-14 h-14 rounded-lg object-cover" />
+                          <Image src={thumb} alt="thumb" width={56} height={56} className="w-14 h-14 rounded-lg object-cover" />
                         ) : (
                           <div className="w-14 h-14 rounded-lg bg-gray-100 flex items-center justify-center text-gray-400">✦</div>
                         )}

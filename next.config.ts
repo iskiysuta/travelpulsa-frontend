@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
+        protocol: 'https',
+        hostname: 'cms.travelpulsa.id',
+        pathname: '/**',
+      },
+      {
         protocol: 'http',
         hostname: '202.155.90.36',
         port: '1337',

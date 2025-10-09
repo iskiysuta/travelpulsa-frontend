@@ -66,7 +66,3 @@ testFrontendWithMock();
 
 
 
-
-
-
-

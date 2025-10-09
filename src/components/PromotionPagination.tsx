@@ -150,7 +150,3 @@ export default function PromotionPagination({
 
 
 
-
-
-
-

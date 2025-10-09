@@ -1,12 +1,35 @@
+export const revalidate = 300; // cache page for 5 minutes (ISR)
+
 export default async function PricesPage({ searchParams }: { searchParams: Promise<{ src?: string }> }) {
   const DEFAULT_URL = 'https://travelpulsa.otoreport.com/harga.js.php?id=261961d19c9819d08d948c082d00d388b28ab658b5c14471ad51c430420be8496b27cde0959069b42b00ba2fc9017dc6-206';
   const { src } = await searchParams;
   const candidate = src ? decodeURIComponent(src) : DEFAULT_URL;
   const SOURCE_URL = candidate.startsWith('https://travelpulsa.otoreport.com/harga.js.php') ? candidate : DEFAULT_URL;
 
-  const res = await fetch(SOURCE_URL, { cache: 'no-store' });
-  const raw = await res.text();
-  const text = raw.replace(/\r\n?/g, '\n');
+  async function fetchWithTimeout(url: string, timeoutMs: number): Promise<string> {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const res = await fetch(url, {
+        signal: controller.signal,
+        cache: 'no-store',
+      });
+      if (!res.ok) throw new Error(`Upstream responded ${res.status}`);
+      return await res.text();
+    } finally {
+      clearTimeout(timeoutId);
+    }
+  }
+
+  let text = '';
+  try {
+    // Query our own cached proxy instead of hitting upstream directly
+    const apiUrl = `/api/prices?${new URLSearchParams({ src: SOURCE_URL }).toString()}`;
+    const raw = await fetchWithTimeout(apiUrl, 4000); // 4s budget on page (API has 10s)
+    text = raw.replace(/\r\n?/g, '\n');
+  } catch {
+    text = '';
+  }
 
   type Section = { title: string; headers: string[]; rows: string[][] };
 
@@ -101,7 +124,7 @@ export default async function PricesPage({ searchParams }: { searchParams: Promi
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           {sections.length === 0 && (
-            <p className="text-gray-600">Harga belum tersedia.</p>
+            <p className="text-gray-600">Harga belum tersedia atau sumber sedang lambat. Coba beberapa saat lagi.</p>
           )}
 
           {sections.map((sec, idx) => (

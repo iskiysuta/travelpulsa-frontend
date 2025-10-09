@@ -42,11 +42,11 @@ export default function PromotionCard({
     const mediaBase = (process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337').replace(/\/api\/?$/, '');
     const rawBanner =
       attributes.bannerImage?.data?.attributes?.url ||
-      (attributes as any)?.bannerImage?.attributes?.url ||
-      (attributes as any)?.bannerImage?.url ||
+      (attributes as Record<string, unknown>)?.bannerImage?.attributes?.url ||
+      (attributes as Record<string, unknown>)?.bannerImage?.url ||
       attributes.image?.data?.attributes?.url ||
-      (attributes as any)?.image?.attributes?.url ||
-      (attributes as any)?.image?.url;
+      (attributes as Record<string, unknown>)?.image?.attributes?.url ||
+      (attributes as Record<string, unknown>)?.image?.url;
     const bannerUrl = rawBanner
       ? (rawBanner.startsWith('http') ? rawBanner : `${mediaBase}${rawBanner}`)
       : null;

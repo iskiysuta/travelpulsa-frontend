@@ -11,8 +11,14 @@ export default function Services() {
           if (entry.isIntersecting) {
             const el = entry.target as HTMLElement;
             const delay = Number(el.dataset.delay || '0');
-            setTimeout(() => el.classList.add('reveal-show'), delay);
-            io.unobserve(el);
+            setTimeout(() => {
+              if (el.isConnected) {
+                el.classList.add('reveal-show');
+              }
+            }, delay);
+            if (el.isConnected) {
+              io.unobserve(el);
+            }
           }
         });
       },
@@ -135,7 +141,7 @@ export default function Services() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <div
-                key={index}
+                key={service.title}
                 className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 border border-gray-100 reveal"
                 data-delay={`${index * 100}`}
               >
@@ -146,8 +152,8 @@ export default function Services() {
                 </div>
                 
                 <div className="space-y-3">
-                  {service.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-center">
+                  {service.features.map((feature) => (
+                    <div key={feature} className="flex items-center">
                       <svg className="w-5 h-5 text-primary mr-3" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { CareerEntity, formatSalary, htmlToText } from '@/lib/career-api';
 
 export default function CareerCard({ career }: { career: CareerEntity }) {
-  const a: any = (career && (career as any).attributes) ? (career as any).attributes : {};
+  const a: Record<string, unknown> = (career && (career as Record<string, unknown>).attributes) ? (career as Record<string, unknown>).attributes as Record<string, unknown> : {};
   const safeSlug = a?.slug && String(a.slug).length > 0 ? String(a.slug) : String(career?.id ?? '');
   const href = `/careers/${encodeURIComponent(safeSlug)}`;
   const dept = a?.department?.replace?.('-', ' ') || '-';

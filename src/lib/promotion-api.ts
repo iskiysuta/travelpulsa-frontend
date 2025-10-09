@@ -69,7 +69,7 @@ export interface PromotionsResponse {
 
 export interface SinglePromotionResponse {
   data: Promotion;
-  meta: {};
+  meta: Record<string, unknown>;
 }
 
 class PromotionAPI {
@@ -80,7 +80,7 @@ class PromotionAPI {
   }
 
   // Resolve media URL from various Strapi shapes (v4/v5, single/relational)
-  getMediaPath(media: any): string | null {
+  getMediaPath(media: Record<string, unknown>): string | null {
     if (!media) return null;
     if (typeof media === 'string') return media;
     const fromData = media?.data?.attributes?.url;
@@ -89,7 +89,7 @@ class PromotionAPI {
     return fromData || fromAttributes || direct || null;
   }
 
-  getAbsoluteMediaUrl(media: any): string | null {
+  getAbsoluteMediaUrl(media: Record<string, unknown>): string | null {
     const path = this.getMediaPath(media);
     if (!path) return null;
     const mediaBase = RAW_STRAPI_URL.replace(/\/api\/?$/, '');
@@ -101,7 +101,7 @@ class PromotionAPI {
   }
 
   // Normalize Strapi v5 responses to ensure attributes shape
-  private normalizePromotion(raw: any): Promotion {
+  private normalizePromotion(raw: Record<string, unknown>): Promotion {
     if (!raw) {
       return {
         id: 0,
@@ -176,7 +176,7 @@ class PromotionAPI {
           if (errorData.error) {
             errorMessage += ` - ${errorData.error.message || errorData.error}`;
           }
-        } catch (e) {
+        } catch {
           // If response is not JSON, use status text
           errorMessage += ` - ${response.statusText}`;
         }
@@ -189,7 +189,7 @@ class PromotionAPI {
       console.error('API Error:', {
         url,
         error: error instanceof Error ? error.message : String(error),
-        status: (error as any)?.status
+        status: (error as Record<string, unknown>)?.status
       });
       throw error;
     }
@@ -197,7 +197,7 @@ class PromotionAPI {
 
   // Get all promotions with optional filters
   async getPromotions(params?: {
-    filters?: Record<string, any>;
+    filters?: Record<string, unknown>;
     sort?: string[];
     pagination?: {
       page?: number;
@@ -249,7 +249,7 @@ class PromotionAPI {
     try {
       const json = await this.fetchAPI(endpoint);
       // Normalize list shape
-      const normalized = Array.isArray(json?.data) ? json.data.map((p: any) => this.normalizePromotion(p)) : [];
+      const normalized = Array.isArray(json?.data) ? json.data.map((p: Record<string, unknown>) => this.normalizePromotion(p)) : [];
       return { data: normalized, meta: json?.meta } as PromotionsResponse;
     } catch (error) {
       if (USE_MOCK_DATA) {
@@ -301,7 +301,7 @@ class PromotionAPI {
       params.append('sort', 'createdAt:desc');
       params.append('populate', '*');
       const json = await this.fetchAPI(`/promotions?${params.toString()}`);
-      const normalized = Array.isArray(json?.data) ? json.data.map((p: any) => this.normalizePromotion(p)) : [];
+      const normalized = Array.isArray(json?.data) ? json.data.map((p: Record<string, unknown>) => this.normalizePromotion(p)) : [];
       return { data: normalized, meta: json?.meta } as PromotionsResponse;
     } catch (error) {
       if (USE_MOCK_DATA) {
@@ -324,7 +324,7 @@ class PromotionAPI {
     params.append('sort', 'createdAt:desc');
     params.append('populate', '*');
     const json = await this.fetchAPI(`/promotions?${params.toString()}`);
-    const normalized = Array.isArray(json?.data) ? json.data.map((p: any) => this.normalizePromotion(p)) : [];
+    const normalized = Array.isArray(json?.data) ? json.data.map((p: Record<string, unknown>) => this.normalizePromotion(p)) : [];
     return { data: normalized, meta: json?.meta } as PromotionsResponse;
   }
 

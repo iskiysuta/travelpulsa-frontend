@@ -1,5 +1,6 @@
 import { api } from '@/lib/api';
 import Link from 'next/link';
+import Image from 'next/image';
 const BASE_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
 interface NewsArticle {
@@ -117,7 +118,7 @@ export default async function News() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center pb-12">
                 <div className="w-full bg-gray-100 rounded-lg overflow-hidden reveal aspect-[16/9]">
                   {getImageUrl(latest) && (
-                    <img src={getImageUrl(latest)} alt={getTitle(latest)} className="w-full h-full object-cover" />
+                    <Image src={getImageUrl(latest)} alt={getTitle(latest)} width={1200} height={675} className="w-full h-full object-cover" />
                   )}
                 </div>
                 <div className="reveal" data-delay="150">
@@ -141,7 +142,7 @@ export default async function News() {
                   <div key={article.id} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 border border-gray-100 reveal" data-delay="100">
                     {getImageUrl(a) && (
                       <div className="w-full bg-gray-100 rounded mb-4 overflow-hidden aspect-[16/9]">
-                        <img src={getImageUrl(a)} alt={getTitle(a)} className="w-full h-full object-cover" />
+                        <Image src={getImageUrl(a)} alt={getTitle(a)} width={1200} height={675} className="w-full h-full object-cover" />
                       </div>
                     )}
                     <div className="flex items-center mb-4">

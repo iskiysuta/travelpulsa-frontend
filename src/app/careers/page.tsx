@@ -23,9 +23,9 @@ export default function CareersPage() {
         if (cancelled) return;
         setData(res);
       })
-      .catch((e: any) => {
+      .catch((e: unknown) => {
         if (cancelled) return;
-        setError(e?.message || 'Gagal memuat lowongan');
+        setError((e as Error)?.message || 'Gagal memuat lowongan');
       })
       .finally(() => {
         if (cancelled) return;
@@ -59,10 +59,10 @@ export default function CareersPage() {
     <div className="min-h-screen bg-white">
       <section className="bg-gradient-to-br from-primary-50 to-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-secondary reveal">
+          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-secondary reveal-show">
             Karir di <span className="text-primary">Travel Pulsa</span>
           </h1>
-          <p className="mt-5 max-w-3xl mx-auto text-lg text-gray-600 reveal" data-delay="150">
+          <p className="mt-5 max-w-3xl mx-auto text-lg text-gray-600 reveal-show" data-delay="150">
             Bergabunglah dengan tim kami untuk membangun layanan digital yang terbaik dan terpercaya.
           </p>
         </div>
@@ -101,7 +101,7 @@ export default function CareersPage() {
           </div>
 
           {/* List */}
-          <div className="mt-8 reveal">
+          <div className="mt-8 reveal-show">
             {loading ? (
               <p className="text-gray-600">Memuat lowongan...</p>
             ) : error ? (
@@ -111,7 +111,7 @@ export default function CareersPage() {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
                 {data?.data?.map((c, idx) => (
-                  <div key={c.id} className="reveal" data-delay={`${idx * 100}`}>
+                  <div key={c.id} className="reveal-show" data-delay={`${idx * 100}`}>
                     <CareerCard career={c} />
                   </div>
                 ))}

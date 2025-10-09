@@ -35,7 +35,7 @@ export const api = {
         `${STRAPI_URL}/api/blog-posts?populate=*&filters[slug][$eq]=${encodeURIComponent(slug)}&publicationState=live`
       );
       return await response.json();
-    } catch (e) {
+    } catch {
       return { data: [] };
     }
   },
@@ -47,7 +47,7 @@ export const api = {
         const res = await fetch(`${STRAPI_URL}/api/blog-posts/${param}?populate=*`);
         const json = await res.json();
         if (json?.data) return { data: [json.data] };
-      } catch (e) {}
+      } catch {}
     }
     // Otherwise, fall back to slug query
     return api.getNewsArticleBySlug(param);

@@ -1,25 +1,12 @@
 'use client';
 import { useEffect } from 'react';
+import Image from 'next/image';
 
 export default function About() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const elements = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const el = entry.target as HTMLElement;
-            const delay = Number(el.dataset.delay || '0');
-            setTimeout(() => el.classList.add('reveal-show'), delay);
-            io.unobserve(el);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-    elements.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+    elements.forEach((el) => el.classList.add('reveal-show'));
   }, []);
   return (
     <div className="min-h-screen bg-white">
@@ -69,7 +56,7 @@ export default function About() {
               </div>
             </div>
             <div className="rounded-xl overflow-hidden ring-1 ring-rose-100 bg-white reveal" data-delay="200">
-              <img src="/images/app-mock.png" alt="Aplikasi TravelPulsa" className="w-full h-full object-cover" />
+              <Image src="/images/app-mock.png" alt="Aplikasi TravelPulsa" width={1200} height={900} className="w-full h-full object-cover" />
             </div>
           </div>
         </div>

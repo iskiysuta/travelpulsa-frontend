@@ -1,4 +1,6 @@
 import { api } from '@/lib/api';
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 import Link from 'next/link';
 import Image from 'next/image';
 const BASE_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';

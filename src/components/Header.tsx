@@ -1,34 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { api } from '@/lib/api';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [siteName, setSiteName] = useState('TravelPulsa');
-  const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const pathname = usePathname();
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await api.getGlobalSettings();
-        const data = res?.data || {};
-        if (data?.siteName) setSiteName(data.siteName);
-        const base = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
-        const img = data?.logo;
-        if (img) {
-          const url = img.url || img?.data?.attributes?.url;
-          if (url) setLogoUrl(url.startsWith('http') ? url : `${base}${url}`);
-        }
-      } catch {
-        // ignore
-      }
-    })();
-  }, []);
 
   const navigation = [
     { name: 'Beranda', href: '/' },
@@ -47,14 +26,14 @@ const Header = () => {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center" aria-label={siteName}>
-              {logoUrl ? (
-                <Image src={logoUrl} alt={siteName} width={120} height={48} className="h-12 w-auto" />
-              ) : (
-                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-2xl">T</span>
-                </div>
-              )}
+            <Link href="/" className="flex items-center" aria-label="TravelPulsa">
+              <Image 
+                src="/images/logo.png" 
+                alt="TravelPulsa Logo" 
+                width={120} 
+                height={48} 
+                className="h-12 w-auto" 
+              />
             </Link>
           </div>
 

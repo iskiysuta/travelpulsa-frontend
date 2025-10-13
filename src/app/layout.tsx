@@ -4,7 +4,6 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RevealInit from "@/components/RevealInit";
-import DynamicFavicon from "@/components/DynamicFavicon";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,6 +20,15 @@ export const metadata: Metadata = {
     description: "Platform terdepan untuk kebutuhan perjalanan dan top-up pulsa",
     type: "website",
   },
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.png', sizes: '32x32', type: 'image/png' }
+    ],
+    shortcut: '/favicon.png',
+    apple: '/icons/apple-touch-icon.png',
+  },
 };
 
 export default function RootLayout({
@@ -31,7 +39,6 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={`${inter.variable} font-sans antialiased`}>
-        <DynamicFavicon />
         <RevealInit />
         <Header />
         <main className="min-h-screen">

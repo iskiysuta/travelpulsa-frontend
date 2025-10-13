@@ -1,10 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { api } from '@/lib/api';
 
-const STRAPI_BASE = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
-
-const Footer = async () => {
+const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
@@ -27,38 +24,6 @@ const Footer = async () => {
     ],
   };
 
-  // Fetch global settings for footer logo, company name, and socials
-  let footerLogoUrl: string | null = null;
-  let companyName: string = 'TravelPulsa';
-  let instagramUrl: string | null = null;
-  let tiktokUrl: string | null = null;
-  let facebookUrl: string | null = null;
-  try {
-    const gs = await api.getGlobalSettings();
-    const data = gs?.data || {};
-    const img = data?.footerLogo;
-    if (img) {
-      const url = img.url || img?.data?.attributes?.url;
-      if (url) footerLogoUrl = url.startsWith('http') ? url : `${STRAPI_BASE}${url}`;
-    }
-    if (typeof data?.companyName === 'string' && data.companyName.trim().length > 0) {
-      companyName = data.companyName;
-    } else if (typeof data?.siteName === 'string' && data.siteName.trim().length > 0) {
-      companyName = data.siteName;
-    }
-
-    // Socials: support nested object or flat fields
-    const socials = data?.socials || {};
-    const ig = socials?.instagram || data?.instagram || data?.instagramUrl;
-    const tt = socials?.tiktok || data?.tiktok || data?.tiktokUrl;
-    const fb = socials?.facebook || data?.facebook || data?.facebookUrl;
-    instagramUrl = typeof ig === 'string' && ig.trim().length > 0 ? ig : null;
-    tiktokUrl = typeof tt === 'string' && tt.trim().length > 0 ? tt : null;
-    facebookUrl = typeof fb === 'string' && fb.trim().length > 0 ? fb : null;
-  } catch {
-    // ignore
-  }
-
   return (
     <footer className="bg-secondary text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -66,14 +31,14 @@ const Footer = async () => {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-2 mb-4">
-              {footerLogoUrl ? (
-                <Image src={footerLogoUrl} alt="TravelPulsa" width={120} height={40} className="h-10 w-auto" />
-              ) : (
-                <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">T</span>
-                </div>
-              )}
-              <span className="text-2xl font-bold">{companyName}</span>
+              <Image 
+                src="/images/footer-logo.png" 
+                alt="TravelPulsa Footer Logo" 
+                width={120} 
+                height={40} 
+                className="h-10 w-auto" 
+              />
+              <span className="text-2xl font-bold">TravelPulsa</span>
             </div>
             <p className="text-gray-300 mb-4">
               Memudahkan semua transaksi digital Anda, mulai dari pulsa, PPOB, hingga voucher game dengan layanan terpercaya.
@@ -81,7 +46,7 @@ const Footer = async () => {
             <div className="flex space-x-4">
               {/* Instagram */}
               <a
-                href={instagramUrl || 'https://www.instagram.com/travelpulsa.id/'}
+                href="https://www.instagram.com/travelpulsa.id/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-primary transition-colors duration-200"
@@ -92,7 +57,7 @@ const Footer = async () => {
               </a>
               {/* TikTok */}
               <a
-                href={tiktokUrl || 'https://www.tiktok.com/@travelpulsa.id?lang=en'}
+                href="https://www.tiktok.com/@travelpulsa.id?lang=en"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-primary transition-colors duration-200"
@@ -103,7 +68,7 @@ const Footer = async () => {
               </a>
               {/* Facebook */}
               <a
-                href={facebookUrl || 'https://www.facebook.com/travelpulsa.id'}
+                href="https://www.facebook.com/travelpulsa.id"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-300 hover:text-primary transition-colors duration-200"
@@ -171,7 +136,7 @@ const Footer = async () => {
         <div className="border-t border-gray-600 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-300 text-sm">
-              © {currentYear} {companyName}. Semua hak dilindungi.
+              © {currentYear} TravelPulsa. Semua hak dilindungi.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link href="/privacy" className="text-gray-300 hover:text-primary text-sm transition-colors duration-200">

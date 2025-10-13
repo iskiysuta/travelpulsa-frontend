@@ -82,8 +82,8 @@ export default async function NewsDetail({ params }: ParamsPromise) {
         <article className="md:col-span-2">
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             {getImageUrl() && (
-              <div className="w-full h-64 md:h-80 overflow-hidden">
-                <Image src={getImageUrl()} alt={(a.title || a.Title || 'Gambar') as string} width={1280} height={512} className="w-full h-full object-cover" />
+              <div className="w-full aspect-[16/9] md:h-80 md:aspect-auto overflow-hidden bg-white">
+                <Image src={getImageUrl()} alt={(a.title || a.Title || 'Gambar') as string} width={1280} height={512} className="w-full h-full object-contain md:object-cover" />
               </div>
             )}
             <div className="p-6 md:p-8">

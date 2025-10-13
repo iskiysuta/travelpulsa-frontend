@@ -57,51 +57,12 @@ export default function Promotions() {
         </div>
       </section>
 
-      {/* Featured Promotions */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 reveal-show">
-            <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">
-              Promo Unggulan
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Jangan lewatkan promo-promo menarik yang sedang berlangsung
-            </p>
-          </div>
-          
-          {loading ? (
-            <PromotionLoading variant="featured" count={2} />
-          ) : error ? (
-            <PromotionError error={error} onRetry={refresh} />
-          ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {[...featuredPromotions]
-                .sort((a: any, b: any) => new Date(b.attributes?.createdAt || b.createdAt || 0).getTime() - new Date(a.attributes?.createdAt || a.createdAt || 0).getTime())
-                .map((promotion, idx) => (
-                <div key={promotion.id} className="reveal-show" data-delay={`${idx * 120}`}>
-                  <PromotionCard
-                    promotion={promotion}
-                    variant="featured"
-                    onUsePromo={handleUsePromo}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
+      {/* Featured Promotions hidden as requested */}
 
       {/* All Promotions */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 reveal-show">
-            <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">
-              Semua Promo
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Kumpulan promo dan penawaran terbaik untuk Anda
-            </p>
-          </div>
+          {/* Heading hidden as requested: "Semua Promo" and its subtitle */}
 
           {/* Filters */}
           <PromotionFilters

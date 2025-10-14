@@ -11,13 +11,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "TravelPulsa - Your Travel & Pulsa Solution",
-  description: "TravelPulsa adalah platform terdepan untuk kebutuhan perjalanan dan top-up pulsa dengan harga terbaik dan pelayanan terpercaya.",
+  title: "TravelPulsa - Mitra Usaha Digital Anda",
+  description: "Jadikan bisnis Anda lebih modern. Bersama kami, Anda bisa menjadi pusat pembayaran digital di lingkungan Anda, memberikan kemudahan bagi pelanggan dan keuntungan bagi Anda.",
   keywords: "travel, pulsa, booking, top-up, perjalanan, tiket, hotel",
   authors: [{ name: "TravelPulsa Team" }],
   openGraph: {
-    title: "TravelPulsa - Your Travel & Pulsa Solution",
-    description: "Platform terdepan untuk kebutuhan perjalanan dan top-up pulsa",
+    title: "TravelPulsa - Mitra Usaha Digital Anda",
+    description: "Jadikan bisnis Anda lebih modern. Bersama kami, Anda bisa menjadi pusat pembayaran digital di lingkungan Anda, memberikan kemudahan bagi pelanggan dan keuntungan bagi Anda.",
     type: "website",
   },
   icons: {

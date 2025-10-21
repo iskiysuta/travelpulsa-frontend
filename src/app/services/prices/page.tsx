@@ -24,10 +24,14 @@ export default async function PricesPage({ searchParams }: { searchParams: Promi
   let text = '';
   try {
     // Query our own cached proxy instead of hitting upstream directly
-    const apiUrl = `/api/prices?${new URLSearchParams({ src: SOURCE_URL }).toString()}`;
+    const apiUrl = `http://localhost:3000/api/prices?${new URLSearchParams({ src: SOURCE_URL }).toString()}`;
+    console.log('API URL:', apiUrl);
     const raw = await fetchWithTimeout(apiUrl, 4000); // 4s budget on page (API has 10s)
+    console.log('Raw response length:', raw.length);
     text = raw.replace(/\r\n?/g, '\n');
-  } catch {
+    console.log('Processed text length:', text.length);
+  } catch (error) {
+    console.log('Fetch error:', error);
     text = '';
   }
 
@@ -89,7 +93,10 @@ export default async function PricesPage({ searchParams }: { searchParams: Promi
 
   function parseHtmlTables(markup: string): Section[] {
     const sections: Section[] = [];
-    const tableMatches = markup.match(/<table[^>]*class=\"?tabel\"?[^>]*>[\s\S]*?<\/table>/gi) || [];
+    console.log('Markup length:', markup.length);
+    console.log('First 500 chars:', markup.substring(0, 500));
+    const tableMatches = markup.match(/<table[^>]*>[\s\S]*?<\/table>/gi) || [];
+    console.log('Found tables:', tableMatches.length);
     for (const tbl of tableMatches) {
       const trMatches = tbl.match(/<tr[^>]*>[\s\S]*?<\/tr>/gi) || [];
       if (trMatches.length < 2) continue;
@@ -112,6 +119,7 @@ export default async function PricesPage({ searchParams }: { searchParams: Promi
 
   let sections: Section[] = parseHtmlTables(text);
   if (sections.length === 0) sections = parseMarkdownTables(text);
+  console.log('Total sections:', sections.length);
 
   return (
     <div className="min-h-screen bg-white">
